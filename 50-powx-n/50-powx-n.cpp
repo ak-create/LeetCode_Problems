@@ -32,7 +32,7 @@ public:
             return mypospow(x,N);
         }
         else{
-            return mynegpow(x,-N);
+            return 1/mypospow(x,-N);
         }
         
     }
