@@ -5,15 +5,11 @@ public:
         for(int i=0;i<piles.size();i++)
             cnt+=(piles[i]%k==0)?piles[i]/k:(piles[i]/k)+1;
         
-        if(cnt<=h)
-            return true;
-        
-        return false;
+       return cnt<=h;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
         int l=1;
-        sort(piles.begin(),piles.end());
-        int r=piles[piles.size()-1];
+       int r=1e9;
         
         while(l<r){
             int mid=l+(r-l)/2;
