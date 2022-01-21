@@ -8,7 +8,7 @@ public:
        return cnt<=h;
     }
     int minEatingSpeed(vector<int>& piles, int h) {
-        int l=1;
+       int l=1;
        int r=1e9;
         
         while(l<r){
@@ -18,9 +18,8 @@ public:
             else
                 l=mid+1;
         }
-        if(isHeFinished(piles,l,h))
+       
             return l;
-        else
-            return r;
+      
     }
 };
