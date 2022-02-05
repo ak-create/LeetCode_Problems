@@ -9,8 +9,8 @@
  * };
  */
 class Solution {
-public:
-    
+
+    private:
     ListNode* merge2Lists(ListNode* main,ListNode* l)
     {
         ListNode* head=main;
@@ -68,7 +68,7 @@ public:
         return head;
     }
     
-    
+    public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         ListNode* head;
         if(lists.size()>=1)
