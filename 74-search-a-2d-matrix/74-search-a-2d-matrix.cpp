@@ -1,16 +1,32 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-          int rows = matrix.size(), cols = matrix[0].size(),
-            row = 0, col = cols - 1;
-			
-        while (row < rows && col > -1) {
-            int cur = matrix[row][col];
-            if (cur == target) return true;
-            if (target > cur) row++;
-            else col--;
-        }
-        
+          int rows = matrix.size(), cols = matrix[0].size();
+          
+          for(int i=0;i<rows;i++)
+          {
+              if(matrix[i][0]<=target and matrix[i][cols-1]>=target)
+              {
+                  int low=0;
+                  int high=cols-1;
+                  bool ak=false;
+                  while(low<high)
+                  {
+                      int mid=low+(high-low)/2;
+                      if(matrix[i][mid]==target)
+                          return true;
+                      else if(matrix[i][mid]>target)
+                          high=mid-1;
+                      else
+                          low=mid+1;
+                      
+                  }
+                  if(matrix[i][low]==target)
+                      return true;
+                  
+                  return false;
+              }
+          }
         return false;
     }
 };
