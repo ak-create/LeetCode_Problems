@@ -1,40 +1,46 @@
 class Solution {
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-            sort(nums.begin(),nums.end());
-        unordered_map<long long int,int>mp;
-       set<vector<int>>ss;
-        for(int  i=0;i<nums.size();i++)
+        sort(nums.begin(),nums.end());
+         vector<vector<int>>v;
+     
+        int n=nums.size();
+        for(int i=0;i<n;i++)
         {
-            mp[nums[i]]=i;
-        }
-        
-        for(int i=0;i<nums.size();i++)
-        {
-            for(int j=i+1;j<nums.size();j++)
+            for(int j=i+1;j<n;j++)
             {
-                for(int k=j+1;k<nums.size();k++)
+                int left=j+1;
+                int right=n-1;
+                int need=target-(nums[i]+nums[j]);
+                while(left<right)
                 {
-                    if(mp.find(target-(long long int)((long long int)nums[i]+(long long int)nums[j]+(long long int)nums[k]))!=mp.end())
+                    if(nums[left]+nums[right]>need)
+                        right--;
+                    else if(nums[left]+nums[right]<need)
+                        left++;
+                    else
                     {
-                        if(mp[target-(nums[i]+nums[j]+nums[k])]!=i and mp[target-(nums[i]+nums[j]+nums[k])]!=j and mp[target-(nums[i]+nums[j]+nums[k])]!=k)
-                        {
-                            vector<int>temp;
-                            temp.push_back(nums[i]);
-                             temp.push_back(nums[j]);
-                             temp.push_back(nums[k]);
-                             temp.push_back(target-(nums[i]+nums[j]+nums[k]));
-                             sort(temp.begin(),temp.end());
-                                ss.insert(temp);
-                                
-                            }
-                            
-                        }
+                        vector<int>temp;
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[left]);
+                        temp.push_back(nums[right]);
+                        v.push_back(temp);
+                        
+                         while(left<right and nums[left]==temp[2])left++;
+                        
+                          while(left<right and nums[right]==temp[3])right--;
+                        
                     }
+                        
                 }
+                
+                while(j+1<n and nums[j+1]==nums[j])j++;
+                
             }
+             while(i+1<n and nums[i+1]==nums[i])i++;
+         }
         
-      vector<vector<int>>v (ss.begin(),ss.end());
         return v;
     }
 };
