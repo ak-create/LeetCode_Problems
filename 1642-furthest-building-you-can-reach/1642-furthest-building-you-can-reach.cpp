@@ -15,7 +15,7 @@ public:
             
         }
         long int cnt=0;
-        // if(s.size()){
+        if(s.size()){
         auto it=s.begin();
         while(it!=s.end() and ladders--)
         {
@@ -23,7 +23,7 @@ public:
             cnt+=x;
             it++;
         }
-        // }
+        }
        // cout<<ind<<" "<<cnt<<" "<<total_bricks<<endl;
         
         return ((total_bricks-cnt)<=bricks);
