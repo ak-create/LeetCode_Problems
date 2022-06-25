@@ -10,20 +10,10 @@ class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode* a=headA,*b=headB;
-        int cnt=0;
         while(a!=b)
         {
-          
-           if(a==NULL)
-              a=headB;
-           else
-               a=a->next;
-            if(b==NULL)
-            b=headA;
-            else
-                b=b->next;
-          
-            
+          a=a?a->next:headB;
+          b=b?b->next:headA;    
         }
         return a;
     }
