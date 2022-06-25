@@ -10,31 +10,40 @@
  */
 class Solution {
 public:
-
-    ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    
-    if(NULL == l1) return l2;
-    if(NULL == l2) return l1;
-    
-    ListNode* head=NULL;    // head of the list to return
-    
-    // find first element (can use dummy node to put this part inside of the loop)
-    if(l1->val < l2->val)       { head = l1; l1 = l1->next; }
-    else                        { head = l2; l2 = l2->next; }
-    
-    ListNode* p = head;     // pointer to form new list
-    
-    // I use && to remove extra IF from the loop
-    while(l1 && l2){
-        if(l1->val < l2->val)   { p->next = l1; l1 = l1->next; }
-        else                    { p->next = l2; l2 = l2->next; }
-        p=p->next;
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummy =new ListNode(-1);
+        ListNode* tail =dummy;
+        while(list1!=NULL and list2!=NULL)
+        {
+            if(list1->val<list2->val)
+            {
+                tail->next=list1;
+                tail=tail->next;
+                list1=list1->next;
+            }
+            else
+            {
+                tail->next=list2;
+                tail=tail->next;
+                list2=list2->next;
+            }
+        }
+        
+        while(list1!=NULL)
+        {
+            tail->next=list1;
+                tail=tail->next;
+                list1=list1->next;
+        }
+         while(list2!=NULL)
+        {
+            tail->next=list2;
+                tail=tail->next;
+                list2=list2->next;
+        }
+        return dummy->next;
+          
+            
+        
     }
-    
-    // add the rest of the tail, done!
-    if(l1)  p->next=l1;
-    else    p->next=l2;
-    
-    return head;
-}
 };
