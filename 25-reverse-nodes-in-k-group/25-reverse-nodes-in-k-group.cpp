@@ -29,32 +29,26 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
           if(head==NULL or head->next==NULL or k==1)
             return head;
-        
-        ListNode* s=head,*e=head;
-        int inc=k-1;
-        while(inc--)
+        ListNode* dummy=new ListNode(-1);
+        dummy->next=head;
+        ListNode* beforest=dummy,*e=head;
+        int i=0;
+        while(e!=NULL)
         {
+            i++;
+            if(i%k==0)
+            {
+                ListNode* s=beforest->next,*temp=e->next;
+                reverse(s,e);
+                beforest->next=e;
+                s->next=temp;
+                beforest=s;
+                e=temp;
+            }
+            else
             e=e->next;
-            if(e==NULL)return head;
         }
-       ListNode* recHead= reverseKGroup(e->next,k);
-        reverse(s,e);
-        s->next=recHead;
-        return e;
-        
-//         return recreverse(head);
-        
-//         LisNode* temp=head;
-//         int len=0;
-//         while(temp!=NULL)
-//         {
-//             len++;
-//             temp=temp->next;
-//         }
-//         while(len>k)
-//         {
-//             len-=k;
-//         }
+        return dummy->next;
         
     }
 };
