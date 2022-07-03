@@ -1,31 +1,29 @@
 class Solution {
 public:
-    vector<vector<int>>ans;
-    
-    void rec(vector<int>& candidates, vector<int>& v, int ind, int target){
-        
-        if(target==0){
-            ans.push_back(v);
-            return;}
-        
-        else if(ind>=candidates.size()||target<0)
+    vector<vector<int>>global;
+    void rec(vector<int>& candidates,vector<int>& local,int ind ,int sum,int target)
+    {
+        if(ind==candidates.size())
+        {
+            if(sum==target)
+                global.push_back(local);
+            
             return;
-        
-        
-  else{
-      // for(int i=ind; i<candidates.size();i++){
-        v.push_back(candidates[ind]);
-        rec(candidates,v,ind,target-candidates[ind]);
-        v.pop_back();
-        rec(candidates,v,ind+1,target);
         }
+        if(sum>target)
+            return ;
         
-    // }
+        sum+=candidates[ind];
+        local.push_back(candidates[ind]);
+        rec(candidates,local,ind,sum,target);
+        sum-=candidates[ind];
+        local.pop_back();
+        rec(candidates,local,ind+1,sum,target);
+        
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<int>v;
-        sort(candidates.begin(),candidates.end());
-        rec(candidates,v,0,target);
-        return ans;
+        vector<int>local;
+        rec(candidates,local,0,0,target);
+        return global;
     }
 };
