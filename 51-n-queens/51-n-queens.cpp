@@ -1,63 +1,67 @@
 class Solution {
-
-    
-    //vector<vector<string>>ans;
-    bool ISitSafe(vector<string>& board,int curr_row,int j,int &n)
+public:
+    bool isValid(int i,int j,vector<vector<int>>&vis,int n)
     {
-        for(int i=curr_row-1;i>=0;i--)
-            if(board[i][j]=='Q')
-                return false;
-        
-        for(int i=curr_row-1,col=j-1;i>=0 and col>=0 ;i--,col--)
-            if(board[i][col]=='Q')
-                return false;
-        
-        for(int i=curr_row-1,col=j+1;i>=0 and col<n ;i--,col++)
-            if(board[i][col]=='Q')
-                return false;
-        
-        return true;
-        
-        
-    }
-
-    void solve( vector<string>&board,int curr_row,int &n,vector<vector<string>>&ans)
-    {
-        if(curr_row==n)
+        int indi=i,indj=j;
+        while(indi>=0 and indj>=0)
         {
-          ans.push_back(board);
-            return ;
+            if(vis[indi][indj]==1)
+                return false;
+            indi--;indj--;
+        }
+        indi=i,indj=j;
+        while(indi>=0)
+        {
+            if(vis[indi][indj]==1)
+                return false;
+            indi--;
+        }
+        indi=i,indj=j;
+        while(indj>=0)
+        {
+            if(vis[indi][indj]==1)
+                return false;
+            indj--;
+        }
+         indi=i,indj=j;
+        while(indi>=0 and indj<n)
+        {
+            if(vis[indi][indj]==1)
+                return false;
+            indi--;indj++;
+        }
+        return true;
+    }
+    void rec(int indi,int cnt,vector<string>&ds,vector<vector<int>>&vis,vector<vector<string>>&v,int n)
+    {
+        if(cnt==n and indi==n)
+        {
+            v.push_back(ds);
+            return;
         }
         
-        for(int i=0;i<n;i++)
-            if(ISitSafe(board,curr_row,i,n))
-            {
-                board[curr_row][i]='Q';
-                solve(board,curr_row+1,n,ans);
-                board[curr_row][i]='.';
-                
-            }
-        
-    }
-    
-    public:
+        for(int j=0;j<n;j++)
+        {
+            if(isValid(indi,j,vis,n))
+               {
+                //cout<<"YES"<<" "<<indi<<" "<<j<<endl;
+                   ds[indi][j]='Q';
+                   cnt++;
+                   vis[indi][j]=1;
+                   rec(indi+1,cnt,ds,vis,v,n);
+                   cnt--;
+                   ds[indi][j]='.';
+                   vis[indi][j]=0;
+               }
+            
+        }    
+              
+  }
     vector<vector<string>> solveNQueens(int n) {
-        vector<string>board(n,string(n,'.'));
-         vector<vector<string>>ans;
-
-        //      for(int i=0;i<n;i++)
-        // {
-        //     for(int j=0;j<n;j++)
-        //     {
-        //         cout<<board[i][j]<<" ";
-        //     }
-        //     cout<<endl;
-        // }
-        
-       solve(board,0,n,ans);
-       
-       return ans;
-        
-        
+        vector<vector<string>>v;
+        vector<vector<int>>vis(n,vector<int>(n,0));
+        vector<string>ds(n,string(n,'.')); 
+        rec(0,0,ds,vis,v,n);
+        return v;
     }
 };
