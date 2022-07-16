@@ -2,8 +2,8 @@ class Solution {
 public:
     struct comp
     {
-      constexpr  bool operator()(pair<int,int> const &p1,pair<int,int> const &p2)
-          const noexcept{
+      bool operator()(pair<int,int> const &p1,pair<int,int> const &p2)
+         {
             return p1.second<p2.second;}
     };
     vector<int> topKFrequent(vector<int>& nums, int k) {
