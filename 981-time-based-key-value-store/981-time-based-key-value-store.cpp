@@ -16,14 +16,14 @@ public:
         else
         {
             auto it=time_keys[key].lower_bound(timestamp);
-            if(it!=time_keys[key].end() and timestamp==(*it).first)
-                return (*it).second;
+            if(it!=time_keys[key].end() and timestamp==it->first)
+                return it->second;
             else
             {
                 if(it==time_keys[key].begin())
                 return "";
                 it--;
-                return (*it).second;
+                return it->second;
             }
         }
         
